@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Libreria</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+      <a href="/" class="navbar-brand mx-auto">Clientes</a>
+    </nav>
+   <div class="container">
+      <div class="row">
+        <div class="col-md-6 mt-4 text-center">
+          <table class="table table-striped">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+            </tr>
+            <% for(var i=0; i< clientes.length;i++) { %>  
+            <tr>
+              <td><%= clientes[i].id_clientes %></td>
+              <td><%= clientes[i].nombre %></td>
+              <td><%= clientes[i].apellido %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+
+        <div class="col-md-6 mt-4 card">
+          <form action="/clientes" method="post" class="card-body">
+            <h3 class="card-title">Agregar Clientes</h3>
+            <div class="form-group mt-4">
+              <input type="text" name="nombre" class="form-control">
+            </div>
+            <div class="form-group mt-4">
+              <input type="text" name="apellido" class="form-control">
+            </div>
+              <input type="submit" class="btn btn-primary my-4" value="Guardar">
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+   </div>
+   <div class="container">
+    <div class="row">
+      <div class="col-md-6 mt-4 card">
+        <form action="/borrar" method="post"  class="w50 py-5">
+          <select name="registroId"class="w-100" >
+            <% clientes.forEach(cliente => {%>
+                        <option value="<%= cliente.id_clientes %>"><%= cliente.nombre + " " + cliente.apellido %></option>
+              <%})%>              
+          </select>
+          <button type="submit" class="btn btn-primary px-5" >Eliminar</button>
+        </form>
+      </div>
+      <div class="col-md-6 mt-4 card">
+        <h3 class="card-title">Modificar Registro</h3>
+        <form action="/editar" method="post" class="card-body">
+          <label for="registroId">Seleccionar el registro a editar</label>
+          <select name="registroId" >
+            <% clientes.forEach(cliente=>{
+              %>
+              <option value="<%= cliente.id_clientes %>"><%cliente.nombre + " "+ cliente.apellido %> </option><%
+            }) %>
+          </select>
+          <div class="form-group mt-4">
+            <input type="text" name="nombre" class="form-control"></div>
+            <div class="form-group mt-4">
+            <input type="text" name="apellido" class="form-control"></div>
+            <button type="submit" class="btn btn-primary my-4">Editar</button>
+        </form>
+
+      </div>
+    </div>
+   </div>
+</body>
+</html>
